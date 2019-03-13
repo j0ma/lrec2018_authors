@@ -1,4 +1,4 @@
-from collections import Counter, OrderedDict
+from collections import Counter
 import lxml.html as html
 import itertools as it
 import pandas as pd
@@ -53,5 +53,10 @@ author_counts.sort_values('count', ascending=False, inplace=True)
 author_counts.reset_index(inplace=True)
 author_counts.drop('index', 1, inplace=True)
 
-print('Done! Here are the top 50 most prolific authors')
-print(author_counts.head(50))
+print('Done! here are top 50 most prolific authors')
+top_authors = author_counts.head(50)
+
+print('Done. Now saving to README')
+table = top_authors.to_html(index=False)
+with open('README.md', 'w') as f:
+    f.write(table)
